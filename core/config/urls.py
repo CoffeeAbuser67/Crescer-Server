@@ -1,4 +1,4 @@
-from apps.users.views import CustomUserDetailsView
+from apps.users.views import CustomUserDetailsView, DeleteAllUsersView, CreateSampleUserView
 from dj_rest_auth.views import PasswordResetConfirmView
 from django.conf import settings
 from django.contrib import admin
@@ -7,7 +7,11 @@ from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 from rest_framework import permissions
 
+
 from apps.api_test.views import Temp_cache_view
+
+
+
 
 #HERE
 
@@ -25,12 +29,20 @@ schema_view = get_schema_view(
 
 
 urlpatterns = [
+
+    
+    # ┌─────────┐
+    # │ Swagger │
+    # └─────────┘
+
     path('api/v1/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path("api/v1/redoc/", schema_view.with_ui("redoc", cache_timeout=0)),
     path(settings.ADMIN_URL, admin.site.urls),
     
-    # ✳ CustomUserDetailsView/ 
-    path("api/v1/auth/user/", CustomUserDetailsView.as_view(), name="user_details"),
+    
+    # ┌──────────────┐
+    # │ df-rest-auth │
+    # └──────────────┘
 
     path("api/v1/auth/", include("dj_rest_auth.urls")),
     path("api/v1/auth/registration/", include("dj_rest_auth.registration.urls")),
@@ -40,11 +52,25 @@ urlpatterns = [
         name="password_reset_confirm",
     ),
 
+    # ┌───────┐
+    # │ Users │
+    # └───────┘
+
+    # ✳ CreateSampleUserView
+    path("api/v1/auth/create_sample/", CreateSampleUserView.as_view(), name="user_details"),
+
+    # ✳ CustomUserDetailsView
+    path("api/v1/auth/user/", CustomUserDetailsView.as_view(), name="user_details"),
+
+    # ✳ DeleteAllUsersView
+    path("api/v1/auth/deleteAll/", DeleteAllUsersView.as_view(), name = "delete_all_view"),
+
+    # ┌──────┐
+    # │ Test │
+    # └──────┘
 
     # ✳ Temp_cache_view
     path("api/v1/cache_my_data/",Temp_cache_view.as_view(), name = "cash_data_view"),
-
-
 
 ]
 
