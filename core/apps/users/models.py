@@ -13,7 +13,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-# {✪} User
+# {✪} User ↯
 class User(AbstractBaseUser, PermissionsMixin):
 
     logger.info("I'm being called bruh. ") # _LOG_ ● User

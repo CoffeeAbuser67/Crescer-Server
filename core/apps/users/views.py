@@ -17,7 +17,7 @@ logger = logging.getLogger(__name__)
 class CustomUserDetailsView(RetrieveUpdateAPIView):
     
     serializer_class = UserSerializer # {□} UserSerializer
-    permission_classes = (IsAuthenticated,)
+    # permission_classes = (IsAuthenticated,)
 
     def get_object(self):
         return self.request.user
@@ -25,14 +25,14 @@ class CustomUserDetailsView(RetrieveUpdateAPIView):
     def get_queryset(self):
         return User.objects.none()
 
-
+# . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 
 # ★ CreateSampleUserView
 class CreateSampleUserView(APIView):
     def post(self, request, *args, **kwargs):
         data = request.data
     
-        logger.info("create_user called") # _LOG_ ● create_user 
+        logger.info("● create_user called ↯") # _LOG_ ● create_user 
         User.objects.create_user(
             first_name = data['first_name'],
             last_name = data['last_name'],
@@ -44,7 +44,7 @@ class CreateSampleUserView(APIView):
         return Response(status=status.HTTP_201_CREATED)
         
 
-
+# . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 
 # ★ DeleteAllUsersView
 class DeleteAllUsersView(APIView):

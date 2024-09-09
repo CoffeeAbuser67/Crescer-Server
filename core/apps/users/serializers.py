@@ -11,8 +11,8 @@ logger = logging.getLogger(__name__)
 
 User = get_user_model()
 
-# {✪} UserSerializer - Output Serializer
-class UserSerializer(serializers.ModelSerializer):
+# {✪} UserSerializer - Output Serializer 
+class UserSerializer(serializers.ModelSerializer): 
     profile_photo = serializers.ReadOnlyField(source="profile.profile_photo.url")
 
     # WARN no role ?
@@ -32,12 +32,13 @@ class UserSerializer(serializers.ModelSerializer):
         if instance.is_superuser:
             representation["admin"] = True
         return representation
-
+    
+# . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 
 # {✪} CustomRegisterSerializer - Input Serializer
-class CustomRegisterSerializer(RegisterSerializer):
+class CustomRegisterSerializer(RegisterSerializer):  
     
-    # _PIN_ this is the register serializer user by the dj-rest-auth  
+    # _PIN_ this is the register serializer used by the dj-rest-auth  
 
     """ 
     NOTE 
@@ -77,7 +78,7 @@ class CustomRegisterSerializer(RegisterSerializer):
         user = adapter.new_user(request)
         self.cleaned_data = self.get_cleaned_data()
         
-        logger.info("● save() called ") # _LOG_ ● save 
+        logger.info("● save() called ") # _LOG_ ● save ↯ 
 
         setup_user_email(request, user, [])
         user.email = self.cleaned_data.get("email")
@@ -106,3 +107,9 @@ class CustomRegisterSerializer(RegisterSerializer):
         user.save()
 
         return user
+    
+# . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+
+
+    
