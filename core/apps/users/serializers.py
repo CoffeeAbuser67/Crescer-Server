@@ -2,9 +2,13 @@ from allauth.account.adapter import get_adapter
 from allauth.account.utils import setup_user_email
 from dj_rest_auth.registration.serializers import RegisterSerializer
 from django.contrib.auth import get_user_model
+from django.contrib.auth.models import Group
 from rest_framework import serializers
 import logging
 
+
+
+from apps.profiles.models import Profile
 
 logger = logging.getLogger(__name__)
 
@@ -13,10 +17,7 @@ User = get_user_model()
 
 # {✪} UserSerializer - Output Serializer 
 class UserSerializer(serializers.ModelSerializer): 
-    profile_photo = serializers.ReadOnlyField(source="profile.profile_photo.url")
 
-    # WARN no role ?
-    # WARN profile_photo ?
     class Meta:
         model = User
         fields = [
@@ -24,7 +25,7 @@ class UserSerializer(serializers.ModelSerializer):
             "email",
             "first_name",
             "last_name",
-            "profile_photo",
+            "user_group",
         ]
 
     def to_representation(self, instance):
@@ -34,6 +35,21 @@ class UserSerializer(serializers.ModelSerializer):
         return representation
     
 # . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+
+
+# {✪} AUthGroupSerializer 
+class AUthGroupSerializer(serializers.ModelSerializer): 
+
+    class Meta:
+        model = Group
+        fields = [
+            "id",
+            "name",
+        ]
+
+
+
 
 # {✪} CustomRegisterSerializer - Input Serializer
 class CustomRegisterSerializer(RegisterSerializer):  
@@ -50,16 +66,17 @@ class CustomRegisterSerializer(RegisterSerializer):
     first_name = serializers.CharField(required=True)
     last_name = serializers.CharField(required=True)
     email = serializers.EmailField(required=True)
-    role = serializers.CharField(required=False)
+    user_group = serializers.IntegerField(required=False)
     password1 = serializers.CharField(write_only=True)
     password2 = serializers.CharField(write_only=True)
 
 
-    def validate_role(self, value):
-        valid_choices = [choice[0] for choice in User.ROLES]
-        if value not in valid_choices:
-            return 'user'  
-        return value
+
+    def validate_group(self, value):
+        choices = [group['id'] for group in Group.objects.values()]
+        if value not in choices:
+            return Group.objects.get(id = 4)
+        return Group.objects.get(id = value)
 
 
     def get_cleaned_data(self):
@@ -69,33 +86,33 @@ class CustomRegisterSerializer(RegisterSerializer):
             "first_name": self.validated_data.get("first_name", ""),
             "last_name": self.validated_data.get("last_name", ""),
             "password1": self.validated_data.get("password1", ""),
-            "role": self.validated_data.get("role", ""),
+            "user_group": self.validated_data.get("user_group", ""),
         }
     
 
     def save(self, request):
+
+        logger.info("● save() called ") # [LOG] ● save ↯ 
         adapter = get_adapter()
         user = adapter.new_user(request)
         self.cleaned_data = self.get_cleaned_data()
         
-        logger.info("● save() called ") # _LOG_ ● save ↯ 
-
-        setup_user_email(request, user, [])
+    
         user.email = self.cleaned_data.get("email")
         user.password = self.cleaned_data.get("password1")
         user.first_name = self.cleaned_data.get("first_name")
         user.last_name = self.cleaned_data.get("last_name")
-    
-        # _PIN_ Custom role handle 
+        # user.user_group = self.cleaned_data.get("user_group")  
 
-        _role = self.cleaned_data.get("role")
-        user.role = self.validate_role(_role)
+        # _PIN_ Handling group role 
+        _group = self.cleaned_data.get("user_group")  
+        user.user_group = self.validate_group(_group)
 
-        if user.role == 'super':
+        if user.user_group == 'super':
             user.is_staff = True
             user.is_superuser = True
 
-        elif user.role == 'admin' or user.role == 'staff':
+        elif user.user_group == 'admin' or user.user_group == 'staff':
             user.is_staff = True
             user.is_superuser = False
 
@@ -106,10 +123,13 @@ class CustomRegisterSerializer(RegisterSerializer):
         user = adapter.save_user(request, user, self)
         user.save()
 
+        setup_user_email(request, user, [])
+
+        # _PIN_ Profile creation 
+        Profile.objects.create(user=user)
+        logger.info(f"{user.first_name}'s profile has been created. ↯") # [LOG] ● profile creation ↯ 
+        
         return user
     
-# . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
-
 
     

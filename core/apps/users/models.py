@@ -1,6 +1,6 @@
 import uuid
 
-from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, Group
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
@@ -16,14 +16,7 @@ logger = logging.getLogger(__name__)
 # {✪} User ↯
 class User(AbstractBaseUser, PermissionsMixin):
 
-    logger.info("I'm being called bruh. ") # _LOG_ ● User
-    ROLES = (
-        ('super', 'Superuser'),
-        ('admin', 'Admin'),
-        ('staff', 'Staff'),
-        ('user', 'User'),
-    )
-
+    logger.info("User Model being invoked. ") # [LOG] ● User 
 
     pkid = models.BigAutoField(primary_key=True, editable=False)
     id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
@@ -32,16 +25,14 @@ class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(
         verbose_name=_("email address"), db_index=True, unique=True
     )
-    profile_photo = models.ImageField(
-        verbose_name=_("profile photo"), default="/user_default.png"
-    )
 
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
 
-    role = models.CharField(max_length=10, choices=ROLES, default='user')
-    
+    # _PIN_ user_group 
+    user_group = models.ForeignKey(Group, on_delete=models.CASCADE, related_name='auth_group')  # HERE
+
     date_joined = models.DateTimeField(default=timezone.now)
 
     USERNAME_FIELD = "email"
@@ -65,3 +56,4 @@ class User(AbstractBaseUser, PermissionsMixin):
     @property
     def get_short_name(self):
         return self.first_name
+

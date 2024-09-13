@@ -477,6 +477,27 @@ asgiref = ">=3.6"
 django = ">=3.2"
 
 [[package]]
+name = "django-countries"
+version = "7.5.1"
+description = "Provides a country field for Django models."
+optional = false
+python-versions = "*"
+files = [
+    {file = "django-countries-7.5.1.tar.gz", hash = "sha256:22915d9b9403932b731622619940a54894a3eb0da9a374e7249c8fc453c122d7"},
+    {file = "django_countries-7.5.1-py3-none-any.whl", hash = "sha256:2df707aca7a5e677254bed116cf6021a136ebaccd5c2f46860abd6452bb45521"},
+]
+
+[package.dependencies]
+asgiref = "*"
+typing-extensions = "*"
+
+[package.extras]
+dev = ["black", "django", "djangorestframework", "graphene-django", "pytest", "pytest-django", "tox"]
+maintainer = ["django", "transifex-client", "zest.releaser[recommended]"]
+pyuca = ["pyuca"]
+test = ["djangorestframework", "graphene-django", "pytest", "pytest-cov", "pytest-django"]
+
+[[package]]
 name = "django-environ"
 version = "0.10.0"
 description = "A package that allows you to utilize 12factor inspired environment variables to configure your Django application."
@@ -505,6 +526,24 @@ files = [
 
 [package.dependencies]
 Django = ">=3.2"
+
+[[package]]
+name = "django-phonenumber-field"
+version = "7.0.2"
+description = "An international phone number field for django models."
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "django-phonenumber-field-7.0.2.tar.gz", hash = "sha256:de3e47b986b4959949762c16fd8fe26b3e462ef3e5531ed00950bd20c698576a"},
+    {file = "django_phonenumber_field-7.0.2-py3-none-any.whl", hash = "sha256:9edad2b2602af25f2aefc73c4cf53eaf7abf9e17d73c1c4372bd3052bebb26f9"},
+]
+
+[package.dependencies]
+Django = ">=3.2"
+
+[package.extras]
+phonenumbers = ["phonenumbers (>=7.0.2)"]
+phonenumberslite = ["phonenumberslite (>=7.0.2)"]
 
 [[package]]
 name = "djangorestframework"
@@ -678,6 +717,17 @@ python-versions = ">=3.8"
 files = [
     {file = "pathspec-0.12.1-py3-none-any.whl", hash = "sha256:a0d503e138a4c123b27490a4f7beda6a01c6f288df0e4a8b79c7eb0dc7b4cc08"},
     {file = "pathspec-0.12.1.tar.gz", hash = "sha256:a482d51503a1ab33b1c67a6c3813a26953dbdc71c31dacaef9a838c4e29f5712"},
+]
+
+[[package]]
+name = "phonenumbers"
+version = "8.13.7"
+description = "Python version of Google's common library for parsing, formatting, storing and validating international phone numbers."
+optional = false
+python-versions = "*"
+files = [
+    {file = "phonenumbers-8.13.7-py2.py3-none-any.whl", hash = "sha256:d3e3555b38c89b121f5b2e917847003bdd07027569d758d5f40156c01aeac089"},
+    {file = "phonenumbers-8.13.7.tar.gz", hash = "sha256:253bb0e01250d21a11f2b42b3e6e161b7f6cb2ac440e2e2a95c1da71d221ee1a"},
 ]
 
 [[package]]
@@ -947,13 +997,13 @@ postgresql = ["psycopg2"]
 
 [[package]]
 name = "pytz"
-version = "2024.1"
+version = "2024.2"
 description = "World timezone definitions, modern and historical"
 optional = false
 python-versions = "*"
 files = [
-    {file = "pytz-2024.1-py2.py3-none-any.whl", hash = "sha256:328171f4e3623139da4983451950b28e95ac706e13f3f2630a879749e7a8b319"},
-    {file = "pytz-2024.1.tar.gz", hash = "sha256:2a29735ea9c18baf14b448846bde5a48030ed267578472d8955cd0e7443a9812"},
+    {file = "pytz-2024.2-py2.py3-none-any.whl", hash = "sha256:31c7c1817eb7fae7ca4b8c7ee50c72f93aa2dd863de768e1ef4245d426aa0725"},
+    {file = "pytz-2024.2.tar.gz", hash = "sha256:2aa355083c50a0f93fa581709deac0c9ad65cca8a9e9beac660adcbd493c798a"},
 ]
 
 [[package]]
@@ -1073,6 +1123,17 @@ dev = ["build", "hatch"]
 doc = ["sphinx"]
 
 [[package]]
+name = "typing-extensions"
+version = "4.12.2"
+description = "Backported and Experimental Type Hints for Python 3.8+"
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "typing_extensions-4.12.2-py3-none-any.whl", hash = "sha256:04e5ca0351e0f3f85c6853954072df659d0d13fac324d0072316b67d7794700d"},
+    {file = "typing_extensions-4.12.2.tar.gz", hash = "sha256:1a7ead55c7e559dd4dee8856e3a88b41225abfe1ce8df57b7c13915fe121ffb8"},
+]
+
+[[package]]
 name = "tzdata"
 version = "2024.1"
 description = "Provider of IANA time zone data"
@@ -1114,4 +1175,4 @@ zstd = ["zstandard (>=0.18.0)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "0a2b99c6cc49cab585d885b07f14b0dc5d6b490d473d86bd4cbf9ee7deceeba2"
+content-hash = "c6c645855491d9ab79b9013eadbc6cb473c2afa70d549be30b8dcd186de86bc3"

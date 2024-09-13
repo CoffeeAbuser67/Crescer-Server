@@ -8,6 +8,7 @@ from rest_framework import status
 
 from .serializers import UserSerializer
 
+
 import logging
 
 User = get_user_model()
@@ -32,7 +33,8 @@ class CreateSampleUserView(APIView):
     def post(self, request, *args, **kwargs):
         data = request.data
     
-        logger.info("● create_user called ↯") # _LOG_ ● create_user 
+        logger.info("● create_user called ↯") # [LOG] ● create_user 
+
         User.objects.create_user(
             first_name = data['first_name'],
             last_name = data['last_name'],
@@ -53,6 +55,19 @@ class DeleteAllUsersView(APIView):
         queryset = User.objects.all()
         queryset.delete()
         
-        logger.info("Deletou tudo ") # _LOG_ ★
+        logger.info("Deletou tudo ") # [LOG] ★ 
 
         return Response(status=status.HTTP_204_NO_CONTENT)
+    
+
+
+
+
+
+
+
+
+
+
+
+

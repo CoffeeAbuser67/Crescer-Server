@@ -25,7 +25,8 @@ class CustomUserManager(BaseUserManager):
     # (●) create_user
     def create_user(self, first_name, last_name, email, password, role = 'user', **extra_fields):
     
-        logger.info(" ● create_user called") # _LOG_  ● create_user 
+        # WARN use group instead of role
+        logger.info(" ● create_user was called user.create") # [LOG]  ● create_user 
 
         if not first_name:
             raise ValueError(_("Users must have a first name."))
@@ -36,6 +37,7 @@ class CustomUserManager(BaseUserManager):
             self.email_validator(email)
         else:
             raise ValueError(_("Users must have an email address."))
+
 
         # _PIN_ Set is_staff and is_superuser based on role field
 

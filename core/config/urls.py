@@ -1,4 +1,3 @@
-from apps.users.views import CustomUserDetailsView, DeleteAllUsersView, CreateSampleUserView
 from dj_rest_auth.views import PasswordResetConfirmView
 from django.conf import settings
 from django.contrib import admin
@@ -6,6 +5,10 @@ from django.urls import include, path
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 from rest_framework import permissions
+
+
+from apps.users.views import CustomUserDetailsView, DeleteAllUsersView, CreateSampleUserView
+from apps.profiles.views import ProfileListView
 
 
 from apps.api_test.views import Temp_cache_view
@@ -61,6 +64,15 @@ urlpatterns = [
 
     # ✳ DeleteAllUsersView
     path("api/v1/auth/deleteAll/", DeleteAllUsersView.as_view(), name = "delete_all_view"),
+
+
+    # ┌─────────┐
+    # │ Profile │
+    # └─────────┘
+
+    # ✳ ProfileListView
+    path("api/v1/auth/all/", ProfileListView.as_view(), name="all-profiles"),
+
 
     # ┌──────┐
     # │ Test │
