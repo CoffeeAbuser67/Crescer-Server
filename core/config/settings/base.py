@@ -163,13 +163,13 @@ REST_FRAMEWORK = {
 }
 
 
-# _PIN_: The SIGNING_KEY must be secret, loaded with the env variables;
+
 SIMPLE_JWT = {
     "AUTH_HEADER_TYPES": ("Bearer",),
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=1),
-    "REFRESH_TOKEN_LIFETIME": timedelta(minutes=2),
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=10),  # # _PIN_ Access Token Time
+    "REFRESH_TOKEN_LIFETIME": timedelta(minutes=20),
     "ROTATE_REFRESH_TOKENS": True,
-    "SIGNING_KEY": "9_16gRVcV56sh_eVZagtlQW_qSzL84Mid7Ej3HcAx3yIhyhikkQ", 
+    "SIGNING_KEY": "9_16gRVcV56sh_eVZagtlQW_qSzL84Mid7Ej3HcAx3yIhyhikkQ", # _PIN_: The SIGNING_KEY must be secret, loaded with the env variables;
     "USER_ID_FIELD": "id",
     "USER_ID_CLAIM": "user_id",
 }

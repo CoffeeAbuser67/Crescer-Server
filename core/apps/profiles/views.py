@@ -12,7 +12,8 @@ from apps.users.permissions import IsAdminUser
 # ★ ProfileListAPIView
 class ProfileListView(APIView):
 
-    permission_classes = [IsAdminUser]
+    # WARN Permission unset
+    # permission_classes = [IsAdminUser]
     # renderer_classes = [ProfilesJSONRenderer]
     pagination_class = ProfilePagination
 

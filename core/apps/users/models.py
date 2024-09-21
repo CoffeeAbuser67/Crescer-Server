@@ -39,7 +39,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     REQUIRED_FIELDS = ["first_name", "last_name"]
     
-    # {□} CustomUserManager
+    # {●} CustomUserManager
     objects = CustomUserManager() 
 
     class Meta:
