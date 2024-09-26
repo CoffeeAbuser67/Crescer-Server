@@ -38,7 +38,7 @@ THIRD_PARTY_APPS = [
     "dj_rest_auth.registration",
 ]
 
-LOCAL_APPS = ["apps.common",  "apps.users", "apps.profiles", "apps.api_test"]
+LOCAL_APPS = ["apps.common",  "apps.users", "apps.profiles", "apps.api_test", "apps.patients"]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 

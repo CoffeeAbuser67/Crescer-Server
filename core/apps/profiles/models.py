@@ -5,16 +5,12 @@ from django.utils.translation import gettext_lazy as _
 from django_countries.fields import CountryField
 from phonenumber_field.modelfields import PhoneNumberField
 
-
 from apps.common.models import TimeStampedModel 
-
-User = get_user_model()
 
 
 # HERE
 class Profile(TimeStampedModel):
 
-  user = models.OneToOneField(User, on_delete=models.CASCADE) 
   parent_name = models.CharField(verbose_name=_("parent name"), blank=True, max_length=150)
   phone_number = PhoneNumberField( 
     verbose_name=_("phone number"), blank=True, max_length=30, default=""

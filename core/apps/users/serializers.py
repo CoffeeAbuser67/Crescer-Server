@@ -125,11 +125,9 @@ class CustomRegisterSerializer(RegisterSerializer):
 
         setup_user_email(request, user, [])
 
-        # _PIN_ Profile creation 
-        Profile.objects.create(user=user)
-        logger.info(f"{user.first_name}'s profile has been created. ↯") # [LOG] ● profile creation ↯ 
-        
         return user
+    
+# . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
     
 
     
