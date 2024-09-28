@@ -11,8 +11,10 @@ logger = logging.getLogger(__name__)
 
 
 # {✪}  CustomUserManager
+# WARN Not being used. Not working.
+# WARN role atrr not exist.. user_group is correct
+
 class CustomUserManager(BaseUserManager):
-    
 
     # (●) email_validator
     def email_validator(self, email):
@@ -25,7 +27,7 @@ class CustomUserManager(BaseUserManager):
     # (●) create_user
     def create_user(self, first_name, last_name, email, password, role = 'user', **extra_fields):
     
-        # WARN use group instead of role
+        
         logger.info(" ● create_user was called user.create") # [LOG]  ● create_user 
 
         if not first_name:

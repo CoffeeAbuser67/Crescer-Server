@@ -5,6 +5,11 @@ from pathlib import Path
 
 import environ
 
+
+# NOTE Should I remove cors in production ? 
+
+
+
 env = environ.Env()
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent.parent
@@ -76,7 +81,8 @@ TEMPLATES = [
 WSGI_APPLICATION = "config.wsgi.application"
 
 
-# _DB_ 
+# _DB_ Local postgres conf
+
 # Local postgres conf
 DATABASES = {
     'default': {
@@ -133,10 +139,9 @@ SITE_ID = 1
 ADMIN_URL = "lesecret/"
 
 
-# _PIN_ :
+# _PIN_ : static and media files
 #Change the static and media files place. 
 #Located inside of the core folder 
-
 STATIC_URL = "/staticfiles/"
 STATIC_ROOT = str(ROOT_DIR / "staticfiles")
 
@@ -180,8 +185,12 @@ REST_AUTH = {
     "JWT_AUTH_REFRESH_COOKIE": "refresh-token",
     'JWT_AUTH_SECURE': False, # _PIN_ Set to true in https
     'JWT_AUTH_HTTPONLY': True,
-    'JWT_AUTH_SAMESITE': 'Strict',# _PIN_ Lax, Strict
+    'JWT_AUTH_SAMESITE': 'Strict', # Lax, Strict
+
+    # _PIN_ Overriding these Serializers  
     "REGISTER_SERIALIZER": "apps.users.serializers.CustomRegisterSerializer",
+    "USER_DETAILS_SERIALIZER": "apps.users.serializers.CustomUserDetailsSerializer",
+
 }
 
 AUTHENTICATION_BACKENDS = [

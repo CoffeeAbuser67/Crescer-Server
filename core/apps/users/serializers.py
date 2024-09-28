@@ -1,6 +1,8 @@
 from allauth.account.adapter import get_adapter
 from allauth.account.utils import setup_user_email
 from dj_rest_auth.registration.serializers import RegisterSerializer
+from dj_rest_auth.serializers import UserDetailsSerializer
+
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 from rest_framework import serializers
@@ -37,6 +39,35 @@ class UserSerializer(serializers.ModelSerializer):
 # . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 
 
+# {✪} CustomUserDetailsSerializer - Output Serializer 
+# NOTE  I'm overriding this Serializer because it is invoked by the JWTSerialier,
+#       which is invoked as response of the login view. I want to pass the user_group field
+class CustomUserDetailsSerializer(UserDetailsSerializer):
+
+    class Meta(UserDetailsSerializer.Meta):
+        extra_fields = []
+        # Retaining the original hasattr logic for username and other fields
+        if hasattr(User, 'USERNAME_FIELD'):
+            extra_fields.append(User.USERNAME_FIELD)
+        if hasattr(User, 'EMAIL_FIELD'):
+            extra_fields.append(User.EMAIL_FIELD)
+        if hasattr(User, 'first_name'):
+            extra_fields.append('first_name')
+        if hasattr(User, 'last_name'):
+            extra_fields.append('last_name')
+        
+        if hasattr(User, 'user_group'):  
+            extra_fields.append('user_group')
+
+        model = User
+        fields = ('pk', *extra_fields)
+        read_only_fields = ('email',)
+
+
+# . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+
+
 
 # {✪} AUthGroupSerializer 
 class AUthGroupSerializer(serializers.ModelSerializer): 
@@ -48,19 +79,18 @@ class AUthGroupSerializer(serializers.ModelSerializer):
             "name",
         ]
 
-
+# . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 
 
 # {✪} CustomRegisterSerializer - Input Serializer
-class CustomRegisterSerializer(RegisterSerializer):  
-    
-    # _PIN_ this is the register serializer used by the dj-rest-auth  
-
     """ 
     NOTE 
         Users created by this serializer won't have the create_user method from the CustomUserManager invoked. 
         Users created with the CustomUserManager won't response with a jwt token. 
     """
+class CustomRegisterSerializer(RegisterSerializer):  
+    
+    # _PIN_ this is the register serializer used by the dj-rest-auth  
 
     username = None
     first_name = serializers.CharField(required=True)
