@@ -153,14 +153,14 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 AUTH_USER_MODEL = "users.User"
 
-# WARN: AllowAny permission Activated
+# WARN: IsAuthenticated permission 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "dj_rest_auth.jwt_auth.JWTCookieAuthentication",
     ],
     "DEFAULT_PERMISSION_CLASSES": [
-        # "rest_framework.permissions.IsAuthenticated", 
-        "rest_framework.permissions.AllowAny",
+        "rest_framework.permissions.IsAuthenticated", 
+        # "rest_framework.permissions.AllowAny",
     ],
     "DEFAULT_FILTER_BACKENDS": [
         "django_filters.rest_framework.DjangoFilterBackend",
@@ -171,9 +171,9 @@ REST_FRAMEWORK = {
 
 SIMPLE_JWT = {
     "AUTH_HEADER_TYPES": ("Bearer",),
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=10),  # # _PIN_ Access Token Time
-    "REFRESH_TOKEN_LIFETIME": timedelta(minutes=20),
-    "ROTATE_REFRESH_TOKENS": True,
+    "ACCESS_TOKEN_LIFETIME": timedelta(seconds=10),  # # _PIN_ Access Token Time ⏰ 
+    "REFRESH_TOKEN_LIFETIME": timedelta(seconds=20),
+    "ROTATE_REFRESH_TOKENS": False,
     "SIGNING_KEY": "9_16gRVcV56sh_eVZagtlQW_qSzL84Mid7Ej3HcAx3yIhyhikkQ", # _PIN_: The SIGNING_KEY must be secret, loaded with the env variables;
     "USER_ID_FIELD": "id",
     "USER_ID_CLAIM": "user_id",

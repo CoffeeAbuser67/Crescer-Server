@@ -44,20 +44,20 @@ class UserSerializer(serializers.ModelSerializer):
 #       which is invoked as response of the login view. I want to pass the user_group field
 class CustomUserDetailsSerializer(UserDetailsSerializer):
 
+    # HERE USERNAME_FIELD is the email field... 
     class Meta(UserDetailsSerializer.Meta):
         extra_fields = []
         # Retaining the original hasattr logic for username and other fields
         if hasattr(User, 'USERNAME_FIELD'):
             extra_fields.append(User.USERNAME_FIELD)
-        if hasattr(User, 'EMAIL_FIELD'):
-            extra_fields.append(User.EMAIL_FIELD)
+        # if hasattr(User, 'EMAIL_FIELD'):
+        #     extra_fields.append(User.EMAIL_FIELD)
         if hasattr(User, 'first_name'):
             extra_fields.append('first_name')
         if hasattr(User, 'last_name'):
             extra_fields.append('last_name')
-        
-        if hasattr(User, 'user_group'):  
-            extra_fields.append('user_group')
+        # if hasattr(User, 'user_group'):  
+        #     extra_fields.append('user_group')
 
         model = User
         fields = ('pk', *extra_fields)
@@ -67,17 +67,12 @@ class CustomUserDetailsSerializer(UserDetailsSerializer):
 # . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 
 
-
-
 # {✪} AUthGroupSerializer 
 class AUthGroupSerializer(serializers.ModelSerializer): 
 
     class Meta:
         model = Group
-        fields = [
-            "id",
-            "name",
-        ]
+        fields = ["id", "name"]
 
 # . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 

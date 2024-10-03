@@ -6,13 +6,16 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 
-from .serializers import UserSerializer
+from .serializers import UserSerializer, AUthGroupSerializer
 
 
 import logging
 
 User = get_user_model()
 logger = logging.getLogger(__name__)
+
+
+
 
 # ★ CustomUserDetailsView
 class CustomUserDetailsView(RetrieveUpdateAPIView):
@@ -24,7 +27,22 @@ class CustomUserDetailsView(RetrieveUpdateAPIView):
         return self.request.user
 
     def get_queryset(self):
-        return User.objects.none()
+        return User.objects.none
+
+# . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+
+# ★ GetUserRole
+class GetUserRoleView(APIView):
+    
+    def get(self, request, pk):
+        
+        user = User.objects.select_related('user_group').get(pk = pk)
+        user_role = user.user_group
+        serializer = AUthGroupSerializer(user_role)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
 
 # . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 

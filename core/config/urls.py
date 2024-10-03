@@ -7,7 +7,8 @@ from drf_yasg.views import get_schema_view
 from rest_framework import permissions
 
 from apps.patients.views import PatientListCreateView, PatientDetailView
-from apps.users.views import CustomUserDetailsView, DeleteAllUsersView, CreateSampleUserView
+
+from apps.users.views import CustomUserDetailsView, DeleteAllUsersView, CreateSampleUserView, GetUserRoleView
 
 from apps.api_test.views import Temp_cache_view
 
@@ -63,10 +64,12 @@ urlpatterns = [
     # ✳ DeleteAllUsersView
     path("api/v1/auth/deleteAll/", DeleteAllUsersView.as_view(), name = "delete_all_view"),
 
+    # ✳ GetUserRoleView
+    path("api/v1/auth/userRole/<int:pk>/", GetUserRoleView.as_view(), name = "Get-roles-view"),
 
-    # ┌─────────┐
-    # │ Profile │
-    # └─────────┘
+    # ┌──────────┐
+    # │ Patients │
+    # └──────────┘
 
     # ✳ PatientListCreateView
     path('api/v1/patients/', PatientListCreateView.as_view(), name='patient-list-create'),
