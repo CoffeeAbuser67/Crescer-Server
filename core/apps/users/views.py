@@ -20,7 +20,7 @@ logger = logging.getLogger(__name__)
 # ★ CustomUserDetailsView
 class CustomUserDetailsView(RetrieveUpdateAPIView):
     
-    serializer_class = UserSerializer # {□} UserSerializer
+    serializer_class = UserSerializer # {○} UserSerializer
     # permission_classes = (IsAuthenticated,)
 
     def get_object(self):
