@@ -4,7 +4,7 @@ from rest_framework import status
 from django.shortcuts import get_object_or_404
 from .models import Patient
 from .serializers import PatientSerializer, PatientBriefSerializer
-from .pagination import ProfilePagination
+from .pagination import PatientPagination
 
 
 import logging
@@ -15,14 +15,9 @@ logger = logging.getLogger(__name__)
 # ★ PatientBriefListView
 class PatientBriefListView(APIView):
 
-    # def get(self, request):
-    #     patients = Patient.objects.all()
-    #     serializer = PatientSerializer(patients, many=True)
-    #     return Response(serializer.data, status=status.HTTP_200_OK)
-    
-    pagination_class = ProfilePagination
+    pagination_class = PatientPagination
     def get(self, request, *args, **kwargs) :
-        queryset = Patient.objects.only('pkid', 'patient_name', 'birth_date', 'expiration_date' )
+        queryset = Patient.objects.only('pkid', 'patient_name', 'birth_date', 'expiration_date' ).order_by('-created_at')
         paginator = self.pagination_class()
         page = paginator.paginate_queryset(queryset, request)
         serializer = PatientBriefSerializer(page, many=True)
