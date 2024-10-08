@@ -6,6 +6,7 @@ from .models import Patient
 from .serializers import PatientSerializer, PatientBriefSerializer
 from .pagination import ProfilePagination
 
+
 import logging
 logger = logging.getLogger(__name__)
 # List and Create view for patients
@@ -34,13 +35,19 @@ class PatientBriefListView(APIView):
 # ★ PatientCreateView
 class PatientCreateView(APIView):
 
+
     def post(self, request):
         logger.info(" ● insert patient invoked ") # [LOG]  ●  insert patient 
         serializer = PatientSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        logger.info(f"Validation errors: {serializer.errors}")
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST )
+
+
+
 
 #  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 

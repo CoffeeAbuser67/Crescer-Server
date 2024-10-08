@@ -71,8 +71,13 @@ urlpatterns = [
     # │ Patients │
     # └──────────┘
 
+
+
+    # ✳ PatientCreateView
+    path('api/v1/create_patient/', PatientCreateView.as_view(), name='patient-create'),
+
     # ✳ PatientBriefListView
-    path('api/v1/patientsList/', PatientBriefListView.as_view(), name='patient-list-create'),
+    path('api/v1/patientsList/', PatientBriefListView.as_view(), name='patient-list'),
 
     # ✳ PatientRetieveUpdateDestroyView
     path('api/v1/patientsRUD/<int:pk>/', PatientRetieveUpdateDestroyView.as_view(), name='patientsRUD'),

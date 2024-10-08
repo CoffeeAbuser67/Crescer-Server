@@ -11,7 +11,7 @@ class Patient(TimeStampedModel):
   patient_name = models.CharField(verbose_name=_("patient name"), max_length=200)
   parent_name = models.CharField(verbose_name=_("parent name"), max_length=200)
 
-  phone_number = PhoneNumberField( 
+  phone_number = models.CharField( 
     verbose_name=_("phone number"), max_length=30, blank=True, default=""
   )   
 
@@ -25,14 +25,15 @@ class Patient(TimeStampedModel):
 
 
   country = CountryField( 
-      verbose_name=_("country"), default="BR", blank=False, null=False
+      verbose_name=_("country"), default="", blank=True, null=False
   )
+
 
   city = models.CharField( 
       verbose_name=_("city"),
       max_length=180,
-      default="Ilhéus",
-      blank=False,
+      default="",
+      blank=True,
       null=False,
   )
   
