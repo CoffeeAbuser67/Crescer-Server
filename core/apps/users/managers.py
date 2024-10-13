@@ -4,7 +4,7 @@ from django.core.validators import validate_email
 from django.utils.translation import gettext_lazy as _
 import logging
 
-
+from django.contrib.auth.models import Group
 logger = logging.getLogger(__name__)
 
 
@@ -25,7 +25,7 @@ class CustomUserManager(BaseUserManager):
             raise ValueError(_("You must provide a valid email address."))
 
     # (●) create_user
-    def create_user(self, first_name, last_name, email, password, role = 'user', **extra_fields):
+    def create_user(self, first_name, last_name, email, password, user_group = 'user', **extra_fields):
     
         
         logger.info(" ● create_user was called user.create") # [LOG]  ● create_user 
@@ -43,11 +43,12 @@ class CustomUserManager(BaseUserManager):
 
         # _PIN_ Set is_staff and is_superuser based on role field
 
-        if role == 'super':
+        if user_group == 'super':
+            logger.info(" ● supper ●") # [LOG]  ● super user 
             extra_fields.setdefault('is_staff', True)
             extra_fields.setdefault('is_superuser', True)
         
-        elif role == 'admin' or role == 'staff':
+        elif user_group == 'admin' or user_group == 'staff':
             extra_fields.setdefault('is_staff', True)
             extra_fields.setdefault('is_superuser', False)
         
@@ -56,8 +57,14 @@ class CustomUserManager(BaseUserManager):
             extra_fields.setdefault('is_superuser', False)
 
 
+        try:
+            group = Group.objects.get(name=user_group)
+        except Group.DoesNotExist:
+            raise ValueError(_("The group '%s' does not exist." % user_group))
+
+
         user = self.model(
-            first_name=first_name, last_name=last_name, email=email, role=role, **extra_fields
+            first_name=first_name, last_name=last_name, email=email, user_group=group, **extra_fields
         )
         user.set_password(password)
 
@@ -65,29 +72,16 @@ class CustomUserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    
+
+
     # (●) create_superuser
     def create_superuser(self, first_name, last_name, email, password, **extra_fields):
 
         if not password:
             raise ValueError(_("Superuser must have a password."))
 
-        extra_fields.setdefault('role', 'super')
+        extra_fields.setdefault('is_superuser', True)
 
-        # _PIN_  This check can't be here anymore
-
-        # if extra_fields.get("is_staff") is not True:
-        #     raise ValueError(_("Superuser must have is_staff=True."))
-
-        # if extra_fields.get("is_superuser") is not True:
-        #     raise ValueError(_("Superuser must have is_superuser=True."))
-
-        if email:
-            email = self.normalize_email(email)
-            self.email_validator(email)
-        else:
-            raise ValueError(_("Superuser must have an email address."))
-
-        user = self.create_user(first_name, last_name, email, password, **extra_fields)
-        user.save(using=self._db)
+        user = self.create_user(first_name, last_name, email, password, user_group = 'super', **extra_fields)
+        
         return user

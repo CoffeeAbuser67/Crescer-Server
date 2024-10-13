@@ -9,9 +9,6 @@ from rest_framework import serializers
 import logging
 
 
-
-from apps.profiles.models import Profile
-
 logger = logging.getLogger(__name__)
 
 
@@ -117,7 +114,7 @@ class CustomRegisterSerializer(RegisterSerializer):
 
     def save(self, request):
 
-        logger.info("● save() called ") # [LOG] ● save ↯ 
+        logger.info("● save() called ") # [LOG] ● save 
         adapter = get_adapter()
         user = adapter.new_user(request)
         self.cleaned_data = self.get_cleaned_data()

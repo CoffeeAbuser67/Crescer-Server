@@ -9,7 +9,6 @@ import environ
 # NOTE Should I remove cors in production ? 
 
 
-
 env = environ.Env()
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent.parent
@@ -33,7 +32,6 @@ DJANGO_APPS = [
 THIRD_PARTY_APPS = [
     "rest_framework",
     "django_filters",
-    "drf_yasg",
     "corsheaders",
     "rest_framework.authtoken",
     "allauth",
@@ -43,7 +41,7 @@ THIRD_PARTY_APPS = [
     "dj_rest_auth.registration",
 ]
 
-LOCAL_APPS = ["apps.common",  "apps.users", "apps.profiles", "apps.api_test", "apps.patients"]
+LOCAL_APPS = ["apps.common",  "apps.users", "apps.api_test", "apps.patients"]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
@@ -81,22 +79,26 @@ TEMPLATES = [
 WSGI_APPLICATION = "config.wsgi.application"
 
 
-# _DB_ Local postgres conf
 
-# Local postgres conf
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'crescer_local',
-        'USER': 'postgres',
-        'PASSWORD': 'efnklewhjnfilwahnF474213127489',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
-}
+# #  . . . . . . . . . . . . . . . . . . . . . 
+
+# # _DB_:Local postgres conf
+# # WARN:  
+# # Local postgres conf
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'crescer_local',
+#         'USER': 'postgres',
+#         'PASSWORD': 'efnklewhjnfilwahnF474213127489',
+#         'HOST': 'localhost',
+#         'PORT': '5432',
+#     }
+# } # . . . . . . . . . . . . . . . . . . . . . 
+
 
 # # Local docker conf
-# DATABASES = {"default": env.db("DATABASE_URL")}
+DATABASES = {"default": env.db("DATABASE_URL")}
 
 
 PASSWORD_HASHERS = [
@@ -171,10 +173,11 @@ REST_FRAMEWORK = {
 
 SIMPLE_JWT = {
     "AUTH_HEADER_TYPES": ("Bearer",),
-    "ACCESS_TOKEN_LIFETIME": timedelta(seconds=60),  # # _PIN_ Access Token Time ⏰ 
+    "ACCESS_TOKEN_LIFETIME": timedelta(seconds=60),   # _PIN_ Access Token Time ⏰ 
     "REFRESH_TOKEN_LIFETIME": timedelta(days=20),
     "ROTATE_REFRESH_TOKENS": False,
-    "SIGNING_KEY": "9_16gRVcV56sh_eVZagtlQW_qSzL84Mid7Ej3HcAx3yIhyhikkQ", # _PIN_: The SIGNING_KEY must be secret, loaded with the env variables;
+    "SIGNING_KEY": env("SIGNING_KEY"),
+    # "SIGNING_KEY": "Q_OlLlrzNWu4dvgRbyrv7g0PQ30txCl9dD7xounpZLB0rvdn0xc",  # _PIN_ switch in docker  # WARN 
     "USER_ID_FIELD": "id",
     "USER_ID_CLAIM": "user_id",
 }

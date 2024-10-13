@@ -51,7 +51,7 @@ class CreateSampleUserView(APIView):
     def post(self, request, *args, **kwargs):
         data = request.data
     
-        logger.info("● create_user called ↯") # [LOG] ● create_user 
+        logger.info("● create_user called ") # [LOG] ● create_user 
 
         User.objects.create_user(
             first_name = data['first_name'],
