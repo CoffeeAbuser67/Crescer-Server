@@ -79,9 +79,7 @@ TEMPLATES = [
 WSGI_APPLICATION = "config.wsgi.application"
 
 
-
-# #  . . . . . . . . . . . . . . . . . . . . . 
-
+# #  . . . . . . . . . . . . . . . . . . . . . . . 
 # # _DB_:Local postgres conf
 # # WARN:  
 # # Local postgres conf
@@ -94,11 +92,14 @@ WSGI_APPLICATION = "config.wsgi.application"
 #         'HOST': 'localhost',
 #         'PORT': '5432',
 #     }
-# } # . . . . . . . . . . . . . . . . . . . . . 
+# } 
 
-
-# # Local docker conf
+# # docker conf
 DATABASES = {"default": env.db("DATABASE_URL")}
+DATABASES["default"]["ATOMIC_REQUESTS"] = True
+
+# #  . . . . . . . . . . . . . . . . . . . . . . . 
+
 
 
 PASSWORD_HASHERS = [
