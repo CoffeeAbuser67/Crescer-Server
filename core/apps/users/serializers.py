@@ -57,7 +57,7 @@ class CustomUserDetailsSerializer(UserDetailsSerializer):
         #     extra_fields.append('user_group')
 
         model = User
-        fields = ('pk', *extra_fields)
+        fields = ('pkid', *extra_fields)
         read_only_fields = ('email',)
 
 
