@@ -79,28 +79,24 @@ TEMPLATES = [
 WSGI_APPLICATION = "config.wsgi.application"
 
 
-# #  . . . . . . . . . . . . . . . . . . . . . . . 
-# # _DB_:Local postgres conf
-# # WARN:  
-# # Local postgres conf
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'crescer_local',
-#         'USER': 'postgres',
-#         'PASSWORD': 'efnklewhjnfilwahnF474213127489',
-#         'HOST': 'localhost',
-#         'PORT': '5432',
-#     }
-# } 
+# #. . . . . . . . . . . . . . . . . . . . . . . 
+# _DB_:Local postgres conf
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'crescer_local',
+        'USER': 'postgres',
+        'PASSWORD': 'efnklewhjnfilwahnF474213127489',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+} 
+# #. . . . . . . . . . . . . . . . . . . . . . . 
 
-# # docker conf
-DATABASES = {"default": env.db("DATABASE_URL")}
-DATABASES["default"]["ATOMIC_REQUESTS"] = True
+# DATABASES = {"default": env.db("DATABASE_URL")}
+# # DATABASES["default"]["ATOMIC_REQUESTS"] = True
 
-# #  . . . . . . . . . . . . . . . . . . . . . . . 
-
-
+# # #. . . . . . . . . . . . . . . . . . . . . . . 
 
 PASSWORD_HASHERS = [
     "django.contrib.auth.hashers.Argon2PasswordHasher",
@@ -177,8 +173,8 @@ SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(seconds=60),   # _PIN_ Access Token Time ⏰ 
     "REFRESH_TOKEN_LIFETIME": timedelta(days=20),
     "ROTATE_REFRESH_TOKENS": False,
-    "SIGNING_KEY": env("SIGNING_KEY"),
-    # "SIGNING_KEY": "Q_OlLlrzNWu4dvgRbyrv7g0PQ30txCl9dD7xounpZLB0rvdn0xc",  # _PIN_ switch in docker  # WARN 
+    # "SIGNING_KEY": env("SIGNING_KEY"),
+    "SIGNING_KEY": "Q_OlLlrzNWu4dvgRbyrv7g0PQ30txCl9dD7xounpZLB0rvdn0xc",  # _PIN_ switch in docker  # WARN 
     "USER_ID_FIELD": "id",
     "USER_ID_CLAIM": "user_id",
 }

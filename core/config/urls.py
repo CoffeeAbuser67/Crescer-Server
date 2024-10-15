@@ -8,7 +8,7 @@ from rest_framework import permissions
 
 from apps.patients.views import  PatientCreateView, PatientBriefListView, PatientRetieveUpdateDestroyView
 
-from apps.users.views import CustomUserDetailsView, DeleteAllUsersView, CreateSampleUserView, GetUserRoleView
+from apps.users.views import DeleteUserView, DeleteAllUsersView, ListUsersView, GetUserRoleView
 
 from apps.api_test.views import Temp_cache_view
 
@@ -51,15 +51,16 @@ urlpatterns = [
         name="password_reset_confirm",
     ),
 
+
     # ┌───────┐
     # │ Users │
     # └───────┘
 
-    # ✳ CreateSampleUserView
-    path("api/v1/auth/create_sample/", CreateSampleUserView.as_view(), name="user_details"),
+    # ✳ listUsersView
+    path("api/v1/auth/listUsers/", ListUsersView.as_view(), name="user_details"),
 
-    # ✳ CustomUserDetailsView
-    path("api/v1/auth/user/", CustomUserDetailsView.as_view(), name="user_details"),
+    # ✳ DeleteUserView
+    path("api/v1/auth/deleteUser/<int:pk>/", DeleteUserView.as_view(), name = "delete_user"),
 
     # ✳ DeleteAllUsersView
     path("api/v1/auth/deleteAll/", DeleteAllUsersView.as_view(), name = "delete_all_view"),
@@ -67,11 +68,11 @@ urlpatterns = [
     # ✳ GetUserRoleView
     path("api/v1/auth/userRole/<int:pk>/", GetUserRoleView.as_view(), name = "Get-roles-view"),
 
+
+
     # ┌──────────┐
     # │ Patients │
     # └──────────┘
-
-
 
     # ✳ PatientCreateView
     path('api/v1/create_patient/', PatientCreateView.as_view(), name='patient-create'),
@@ -81,6 +82,8 @@ urlpatterns = [
 
     # ✳ PatientRetieveUpdateDestroyView
     path('api/v1/patientsRUD/<int:pk>/', PatientRetieveUpdateDestroyView.as_view(), name='patientsRUD'),
+
+
 
     # ┌──────┐
     # │ Test │
