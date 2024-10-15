@@ -18,12 +18,19 @@ logger = logging.getLogger(__name__)
 # ★ ListUsersView
 class ListUsersView(APIView):
     
-    def get(self, request, *args, **kwargs):
-        queryset = User.objects.all()
-        serializer = UserSerializer(queryset, many=True) # {○} UserSerializer
+    def get(self, request ):
+
+        # NOTE 
+        #   False is considered smaller than True.
+        #   So, the active user (which returns False) will appear first in the sorted list, and all other users (which return True) will follow.
+
+        active_user = request.user
+        all_users = list(User.objects.all())
+        sorted_users = sorted(all_users, key=lambda u: u != active_user)
+
+        serializer = UserSerializer(sorted_users, many=True) # {○} UserSerializer
         return Response(serializer.data, status=status.HTTP_200_OK)
-        
-    # permission_classes = (IsAuthenticated,)
+
 
 # . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 
