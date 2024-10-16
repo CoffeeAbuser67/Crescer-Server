@@ -66,7 +66,7 @@ urlpatterns = [
     path("api/v1/auth/deleteAll/", DeleteAllUsersView.as_view(), name = "delete_all_view"),
 
     # ✳ GetUserRoleView
-    path("api/v1/auth/userRole/<int:pk>/", GetUserRoleView.as_view(), name = "Get-roles-view"),
+    path("api/v1/auth/userRole/", GetUserRoleView.as_view(), name = "Get-roles-view"),
 
 
 

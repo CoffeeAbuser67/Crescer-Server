@@ -38,9 +38,12 @@ class ListUsersView(APIView):
 # ★ GetUserRole
 class GetUserRoleView(APIView):
     
-    def get(self, request, pk):
+    def get(self, request):
         
+        pk = request.user.pk
+        logger.info("pk ") # [LOG] ★
         user = User.objects.select_related('user_group').get(pk = pk)
+    
         user_role = user.user_group
         serializer = AUthGroupSerializer(user_role)
 
@@ -52,9 +55,6 @@ class GetUserRoleView(APIView):
 
 # ★ DeleteUserView
 class DeleteUserView(APIView):
-
-    logger.info("entrou na view delete pelo menos ") # [LOG] ★ 
-
     def delete(self, request, pk):
         user = get_object_or_404(User, pk=pk)
         user.delete()

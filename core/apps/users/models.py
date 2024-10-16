@@ -31,7 +31,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_superuser = models.BooleanField(default=False)
 
     # _PIN_ user_group 
-    user_group = models.ForeignKey(Group, on_delete=models.CASCADE, related_name='auth_group')  # HERE
+    user_group = models.ForeignKey(Group, on_delete=models.CASCADE, related_name='auth_group') 
 
     date_joined = models.DateTimeField(default=timezone.now)
 
