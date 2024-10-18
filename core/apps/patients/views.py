@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.shortcuts import get_object_or_404
 from .models import Patient
-from .serializers import PatientSerializer, PatientBriefSerializer
+from .serializers import PatientSerializer, PatientBriefSerializer, PatientNoteSerializer
 from .pagination import PatientPagination
 
 
@@ -32,13 +32,11 @@ class PatientCreateView(APIView):
 
 
     def post(self, request):
-        logger.info(" ● insert patient invoked ") # [LOG]  ●  insert patient 
+        logger.info(" ● insert patient invoked ") # [LOG] 
         serializer = PatientSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-        logger.info(f"Validation errors: {serializer.errors}")
-
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST )
 
 
@@ -67,3 +65,19 @@ class PatientRetieveUpdateDestroyView(APIView):
         patient = get_object_or_404(Patient, pk=pk)
         patient.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+
+#  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+
+
+# ★ PatientNoteUpdateView
+class PatientNoteUpdateView(APIView):
+
+    def patch(self, request, pk):
+        patient = get_object_or_404(Patient, pk=pk)
+        serializer = PatientNoteSerializer(patient, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()  
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

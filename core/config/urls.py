@@ -6,13 +6,12 @@ from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 from rest_framework import permissions
 
-from apps.patients.views import  PatientCreateView, PatientBriefListView, PatientRetieveUpdateDestroyView
+from apps.patients.views import  PatientCreateView, PatientBriefListView, PatientRetieveUpdateDestroyView, PatientNoteUpdateView
 
 from apps.users.views import DeleteUserView, DeleteAllUsersView, ListUsersView, GetUserRoleView
 
 from apps.api_test.views import Temp_cache_view
 
-# HERE
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -56,16 +55,16 @@ urlpatterns = [
     # │ Users │
     # └───────┘
 
-    # ✳ listUsersView
+    # [ROUTE]  listUsersView
     path("api/v1/auth/listUsers/", ListUsersView.as_view(), name="user_details"),
 
-    # ✳ DeleteUserView
+    # [ROUTE]  DeleteUserView
     path("api/v1/auth/deleteUser/<int:pk>/", DeleteUserView.as_view(), name = "delete_user"),
 
-    # ✳ DeleteAllUsersView
+    # [ROUTE]  DeleteAllUsersView
     path("api/v1/auth/deleteAll/", DeleteAllUsersView.as_view(), name = "delete_all_view"),
 
-    # ✳ GetUserRoleView
+    # [ROUTE]  GetUserRoleView
     path("api/v1/auth/userRole/", GetUserRoleView.as_view(), name = "Get-roles-view"),
 
 
@@ -74,14 +73,17 @@ urlpatterns = [
     # │ Patients │
     # └──────────┘
 
-    # ✳ PatientCreateView
+    # [ROUTE]  PatientCreateView
     path('api/v1/create_patient/', PatientCreateView.as_view(), name='patient-create'),
 
-    # ✳ PatientBriefListView
+    # [ROUTE]  PatientBriefListView
     path('api/v1/patientsList/', PatientBriefListView.as_view(), name='patient-list'),
 
-    # ✳ PatientRetieveUpdateDestroyView
+    # [ROUTE]  PatientRetieveUpdateDestroyView
     path('api/v1/patientsRUD/<int:pk>/', PatientRetieveUpdateDestroyView.as_view(), name='patientsRUD'),
+
+    # [ROUTE]  PatientNoteUpdateView
+    path("api/v1/patientNote/<int:pk>/", PatientNoteUpdateView.as_view(), name="patient-note-update"),
 
 
 
@@ -89,7 +91,7 @@ urlpatterns = [
     # │ Test │
     # └──────┘
 
-    # ✳ Temp_cache_view
+    # [ROUTE]  Temp_cache_view
     path("api/v1/cache_my_data/",Temp_cache_view.as_view(), name = "cash_data_view"),
 
 ]

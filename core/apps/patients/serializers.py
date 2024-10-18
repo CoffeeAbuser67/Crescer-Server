@@ -28,7 +28,6 @@ class PatientBriefSerializer(serializers.ModelSerializer):
 
 
 # {✪} PatientSerializer
-# WARN I don't know how to save image yet nor how to generate valid phonenumber
 class PatientSerializer(serializers.ModelSerializer):
     class Meta:
         model = Patient
@@ -45,3 +44,9 @@ class PatientSerializer(serializers.ModelSerializer):
         ]
         read_only_fields = ['created_at', 'updated_at']
 
+
+# {✪} PatientNoteSerializer
+class PatientNoteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Patient
+        fields = ['note']  
