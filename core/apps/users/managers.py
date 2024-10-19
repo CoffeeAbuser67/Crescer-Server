@@ -11,8 +11,6 @@ logger = logging.getLogger(__name__)
 
 
 # {✪}  CustomUserManager
-# WARN Not being used. Not working.
-# WARN role atrr not exist.. user_group is correct
 
 class CustomUserManager(BaseUserManager):
 

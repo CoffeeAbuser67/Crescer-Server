@@ -91,10 +91,10 @@ DATABASES = {
         'PORT': '5432',
     }
 } 
-# #. . . . . . . . . . . . . . . . . . . . . . . 
+#. . . . . . . . . . . . . . . . . . . . . . . 
 
 # DATABASES = {"default": env.db("DATABASE_URL")}
-# # DATABASES["default"]["ATOMIC_REQUESTS"] = True
+# DATABASES["default"]["ATOMIC_REQUESTS"] = True
 
 # # #. . . . . . . . . . . . . . . . . . . . . . . 
 

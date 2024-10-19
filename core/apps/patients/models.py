@@ -36,10 +36,6 @@ class Patient(TimeStampedModel):
       null=False,
   )
   
-  # # WARN I don't know how to save image yet
-  # profile_photo = models.ImageField( 
-  #   verbose_name=_("profile photo"), default="/profile_default.png", blank=True, null=True,
-  # )
 
   birth_date = models.DateField()
 
