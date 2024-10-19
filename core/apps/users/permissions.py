@@ -25,7 +25,7 @@ def _has_group_permission(user, required_groups):
 
 class IsAdminUser(permissions.BasePermission):
     # group_name for super admin
-    required_groups = ['admin']
+    required_groups = ['admin', 'super']
 
     def has_permission(self, request, view):
         has_group_permission = _has_group_permission(request.user, self.required_groups)

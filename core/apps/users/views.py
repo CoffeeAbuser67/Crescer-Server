@@ -8,6 +8,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from .serializers import UserSerializer, AUthGroupSerializer
 
+from .permissions import IsAdminUser
+
 
 import logging
 
@@ -55,6 +57,9 @@ class GetUserRoleView(APIView):
 
 # ★ DeleteUserView
 class DeleteUserView(APIView):
+
+    permission_classes = [IsAdminUser]
+
     def delete(self, request, pk):
         user = get_object_or_404(User, pk=pk)
         user.delete()

@@ -6,6 +6,11 @@ from .models import Patient
 from .serializers import PatientSerializer, PatientBriefSerializer, PatientNoteSerializer
 from .pagination import PatientPagination
 
+from ..users.permissions import IsAdminUser
+
+
+
+
 
 import logging
 logger = logging.getLogger(__name__)
@@ -30,6 +35,7 @@ class PatientBriefListView(APIView):
 # ★ PatientCreateView
 class PatientCreateView(APIView):
 
+    permission_classes = [IsAdminUser]
 
     def post(self, request):
         logger.info(" ● insert patient invoked ") # [LOG] 
@@ -44,6 +50,9 @@ class PatientCreateView(APIView):
 
 #  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 
+# NOTE 
+#   I need to make a separate view fot the retreat method here because 
+#   the update and delete methods use custom permissions
 
 # ★ PatientRetieveUpdateDestroyView
 class PatientRetieveUpdateDestroyView(APIView):
@@ -73,6 +82,7 @@ class PatientRetieveUpdateDestroyView(APIView):
 
 # ★ PatientNoteUpdateView
 class PatientNoteUpdateView(APIView):
+    permission_classes = [IsAdminUser]
 
     def patch(self, request, pk):
         patient = get_object_or_404(Patient, pk=pk)
