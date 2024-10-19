@@ -5,6 +5,10 @@ from .base import DATABASES
 # HERE PRODUCTION SETTINGS
 
 
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = env.bool("DJANGO_DEBUG", False)
+
+
 CORS_ALLOWED_ORIGINS = [
     "http://cresceredesenvolver.com",
     "https://cresceredesenvolver.com",

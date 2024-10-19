@@ -10,7 +10,7 @@ SECRET_KEY = env(
     default="gJOqMl5WCF5X9fLJX0gHhXYooS-ZcOdGRcvL4mkIjc-dJ4j4fJw",
 )
 
-# WARN SECURITY: don't run with debug turned on in production!
+
 DEBUG = True
 
 

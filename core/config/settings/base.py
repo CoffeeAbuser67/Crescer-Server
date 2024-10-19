@@ -15,9 +15,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent.parent
 ROOT_DIR = BASE_DIR / "core"
 
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env.bool("DJANGO_DEBUG", False)
-
 DJANGO_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
