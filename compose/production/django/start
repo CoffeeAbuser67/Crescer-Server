@@ -1,0 +1,20 @@
+#!/bin/bash
+# HERE
+set -o errexit
+
+set -o pipefail
+
+set -o nounset
+
+poetry run python core/manage.py collectstatic --no-input
+
+poetry run python core/manage.py migrate --no-input
+
+exec poetry run gunicorn config.wsgi --bind 0.0.0.0:8000 --chdir=/app/core
+
+# exec poetry run python core/manage.py runserver 0.0.0.0:8000
+
+
+
+
+

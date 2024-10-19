@@ -1,0 +1,60 @@
+version: "3.9"
+# HERE
+
+# ★ ✦──── production ───➤
+
+# build: docker compose -f production.yml up --build -d --remove-orphans
+# up:    docker compose -f production.yml up -d
+# down:  docker compose -f production.yml down
+
+services:
+  api:
+    build:
+      dockerfile: ./compose/production/django/dockerfile
+    container_name: django-api
+    # volumes:
+    #   - /server/testeBind/ /app/testeBind
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./.envs/.production/.django
+      - ./.envs/.production/.postgres
+    depends_on:
+      - postgres
+    command: /start
+    networks:
+      - my-app-net
+
+  postgres:
+    build:
+      context: .
+      dockerfile: ./compose/production/postgres/dockerfile
+    container_name: postgres-DB
+    volumes:
+      - local_postgres_data:/var/lib/postgresql/data
+      - local_postgres_data_backups:/backups
+    env_file:
+      - ./.envs/.production/.postgres
+    networks:
+      - my-app-net
+
+networks:
+  my-app-net:
+    driver: bridge
+
+volumes:
+  local_postgres_data: {}
+  local_postgres_data_backups: {}
+
+
+
+
+
+
+
+
+
+
+
+
+

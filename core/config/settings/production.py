@@ -5,12 +5,9 @@ from .base import DATABASES
 # HERE PRODUCTION SETTINGS
 
 
-
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",
-    "http://127.0.0.1:5173",
-    "http://localhost:81",
-    "http://127.0.0.1:81"
+    "http://cresceredesenvolver.com",
+    "https://cresceredesenvolver.com",
 ]
 
 CORS_ALLOW_CREDENTIALS = True
@@ -23,14 +20,14 @@ ADMINS = [("Henry Melen", "hymelen@hotmail.com")]
 
 # WARN
 # TODO add domain names of the production server
-CSRF_TRUSTED_ORIGINS = ["https://example.com"]
+CSRF_TRUSTED_ORIGINS = ["https://cresceredensenvolver.com"]
 
 
 
 SECRET_KEY = env("DJANGO_SECRET_KEY")
 
 # HERE
-ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS", default=["trainingwebdev.com"])
+ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS", default=["cresceredesenvolver.com"])
 
 
 # HERE
