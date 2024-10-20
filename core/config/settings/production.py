@@ -10,12 +10,11 @@ DEBUG = env.bool("DJANGO_DEBUG", False)
 
 
 CORS_ALLOWED_ORIGINS = [
-    "http://cresceredesenvolver.com",
-    "https://cresceredesenvolver.com",
+    "https://cresceredesenvolver.com",    
+    "https://www.cresceredesenvolver.com",
 ]
 
 CORS_ALLOW_CREDENTIALS = True
-
 
 
 # WARN
@@ -31,7 +30,7 @@ CSRF_TRUSTED_ORIGINS = ["https://cresceredensenvolver.com"]
 SECRET_KEY = env("DJANGO_SECRET_KEY")
 
 # HERE
-ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS", default=["cresceredesenvolver.com"])
+ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS", default=["cresceredesenvolver.com", "www.cresceredesenvolver.com"])
 
 
 # HERE
@@ -75,12 +74,6 @@ SECURE_CONTENT_TYPE_NOSNIFF = env.bool(
 # STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 
-DEFAULT_FROM_EMAIL = env(
-    "DJANGO_DEFAULT_FROM_EMAIL",
-    default="Authors Haven Support <support@trainingwebdev.com>",
-)
-
-
 
 # WARN
 SITE_NAME = "Crescer Cards"
@@ -107,8 +100,6 @@ SITE_NAME = "Crescer Cards"
 # EMAIL_USE_TLS = True
 # DOMAIN = env("DOMAIN")
 # ✳ ✦─────────────────────────────────────────────────────────────────────➤
-
-
 
 
 

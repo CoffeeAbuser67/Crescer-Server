@@ -158,8 +158,8 @@ REST_FRAMEWORK = {
 
 SIMPLE_JWT = {
     "AUTH_HEADER_TYPES": ("Bearer",),
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=25),   # _PIN_ Access Token Time ⏰ 
-    "REFRESH_TOKEN_LIFETIME": timedelta(days=20),
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=20),   # _PIN_ Access Token Time ⏰ 
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=10),
     "ROTATE_REFRESH_TOKENS": False,
     "SIGNING_KEY": env("SIGNING_KEY"),
     "USER_ID_FIELD": "id",
