@@ -29,16 +29,17 @@ CSRF_TRUSTED_ORIGINS = ["https://cresceredensenvolver.com"]
 
 SECRET_KEY = env("DJANGO_SECRET_KEY")
 
-# HERE
-ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS", default=["cresceredesenvolver.com", "www.cresceredesenvolver.com"])
-
 
 # HERE
 DATABASES["default"]["CONN_MAX_AGE"] = env.int("CONN_MAX_AGE", default=60)
 
 
-SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
+# HERE
+ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS", default=["localhost", "127.0.0.1", "cresceredesenvolver.com", "www.cresceredesenvolver.com"])
+
+
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 
 SECURE_SSL_REDIRECT = env.bool("DJANGO_SECURE_SSL_REDIRECT", default=True)
